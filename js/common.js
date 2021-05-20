@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function(e){
         controls: false
     });
 
+    const imgSliderPrev = document.querySelectorAll("ul.sliderControl button.prev");
+    const imgSliderNext = document.querySelectorAll("ul.sliderControl button.next");
+
     for (let i = 0; i < imgSliderPrev.length; i++){
         imgSliderPrev[i].onclick = (() => {
             imgSlider.goTo("prev");
@@ -25,5 +28,12 @@ document.addEventListener("DOMContentLoaded", function(e){
             imgSlider.goTo("next");
         });
     }
+
+    const slidePageNumCurrent = document.querySelector("p.num > span.current");
+    const slidePageNumTotal = document.querySelectorAll("p.num > span.total");
+    imgSlider.events.on("transitionEnd", function(){
+        slidePageNumCurrent.innerText = imgSlider.getInfo().slideCount;
+        slidePageNumTotal.innerText = imgSlider.getInfo().index;
+    });
 
 });
